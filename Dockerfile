@@ -21,8 +21,7 @@ RUN \
   a2enmod ssl && \
   a2ensite default-ssl && \
   a2enconf drupal && \
-  php5enmod drupal-recommended
-  
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+  php5enmod drupal-recommended && \
+  apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 EXPOSE 80 443
