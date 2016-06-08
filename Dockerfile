@@ -22,6 +22,7 @@ RUN \
       php5.6-xml \
       php5.6-xdebug \
       php5.6-xhprof \
+      php5.6-mbstring \
       # For default snakeoil certificates which SSL is configuered to use
       # per default in Apache.
       ssl-cert \
