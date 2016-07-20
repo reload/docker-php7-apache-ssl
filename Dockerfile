@@ -4,6 +4,8 @@ MAINTAINER Reload A/S <kontakt@reload.dk>
 
 COPY files/etc/ /etc/
 
+ENV PATH /root/.composer/vendor/bin:$PATH
+
 RUN \
   apt-get update && \
   # Install packages needed to enable an extra repository.
@@ -15,6 +17,8 @@ RUN \
   DEBIAN_FRONTEND=noninteractive \
     apt-get -y install \
       apache2 \
+      # Drush needs this to work
+      mysql-client \
       libapache2-mod-php5.6 \
       php5.6-curl \
       php5.6-gd \
@@ -25,6 +29,8 @@ RUN \
       php5.6-mbstring \
       php5.6-mcrypt \
       php5.6-soap \
+      # Added for installing composer.
+      php5.6-zip \
       # For default snakeoil certificates which SSL is configuered to use
       # per default in Apache.
       ssl-cert \
@@ -35,6 +41,9 @@ RUN \
   a2enconf drupal && \
   phpenmod drupal-recommended && \
   phpenmod xdebug && \
+  # Drush 8 is the current stable that supports Drupal version 6, 7 and 8.
+  curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer && \
+  composer global require drush/drush:8.* && \
   apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 EXPOSE 80 443
