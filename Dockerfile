@@ -35,6 +35,8 @@ RUN \
       php${PHP_VERSION}-zip \
       # Other extensions
       php${PHP_VERSION}-intl \
+      php-memcache \
+      php-memcached \
       # For default snakeoil certificates which SSL is configuered to use
       # per default in Apache.
       ssl-cert \
