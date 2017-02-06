@@ -3,6 +3,8 @@ FROM phusion/baseimage:0.9.18
 MAINTAINER Reload A/S <kontakt@reload.dk>
 
 COPY files/etc/ /etc/
+# Add our tools to PATH.
+COPY files/bin /usr/local/bin/
 
 ENV PATH /root/.composer/vendor/bin:$PATH
 ENV PHP_VERSION 5.6
@@ -40,18 +42,20 @@ RUN \
       # For default snakeoil certificates which SSL is configuered to use
       # per default in Apache.
       ssl-cert \
+      dnsutils \
+      imagemagick \
   && \
   a2enmod rewrite && \
   a2enmod ssl && \
   a2ensite default-ssl && \
   a2enconf drupal && \
   phpenmod drupal-recommended && \
-  phpenmod xdebug && \
+  phpdismod xdebug && \
   # Drush 8 is the current stable that supports Drupal version 6, 7 and 8.
   curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer && \
   composer global require drush/drush:8.* && \
   apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ENV PHP_DEFAULT_EXTENSIONS calendar ctype curl dom exif fileinfo ftp gd gettext iconv json mcrypt mysql mysqli mysqlnd opcache pdo pdo_mysql phar posix readline shmop simplexml soap sockets sysvmsg sysvsem sysvshm tokenizer wddx xdebug xhprof xml xmlreader xmlwriter xsl mbstring zip
+ENV PHP_DEFAULT_EXTENSIONS calendar ctype curl dom exif fileinfo ftp gd gettext iconv json mcrypt mysql mysqli mysqlnd opcache pdo pdo_mysql phar posix readline shmop simplexml soap sockets sysvmsg sysvsem sysvshm tokenizer wddx xhprof xml xmlreader xmlwriter xsl mbstring zip
 
 EXPOSE 80 443
