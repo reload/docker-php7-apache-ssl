@@ -37,7 +37,6 @@ The following PHP extensions will be enabled by default:
  * sysvshm
  * tokenizer
  * wddx
- * xdebug
  * xhprof
  * xml
  * xmlreader
@@ -55,3 +54,21 @@ want enabled in the environment variable `PHP_DEFAULT_EXTENSIONS`.
 Currently the following extra extensions are supported:
 
  * intl
+
+## Xdebug
+Xdebug is disabled pr. default but the extension is available and
+we ship with xdebug.remote_connect_back enabled (when the extension
+is enabled). To enable the xdebug-extension execute
+/usr/local/bin/xdebug-start via docker, eg:
+```
+docker exec -ti <container id> xdebug-start
+```
+
+Or via docker-compose, eg. if the image is used by a service called
+fpm:
+```
+docker-compose exec fpm xdebug-start
+```
+
+The scripts enables xdebug and blocks until the user presses enter
+or terminates the script after which xdebug is disabled again.
