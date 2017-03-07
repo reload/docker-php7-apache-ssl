@@ -59,3 +59,4 @@ RUN \
 ENV PHP_DEFAULT_EXTENSIONS calendar ctype curl dom exif fileinfo ftp gd gettext iconv json mcrypt mysql mysqli mysqlnd opcache pdo pdo_mysql phar posix readline shmop simplexml soap sockets sysvmsg sysvsem sysvshm tokenizer wddx xhprof xml xmlreader xmlwriter xsl mbstring zip
 
 EXPOSE 80 443
+WORKDIR /var/www/html
