@@ -44,6 +44,7 @@ RUN \
       ssl-cert \
       dnsutils \
       imagemagick \
+      unzip \
   && \
   a2enmod rewrite && \
   a2enmod ssl && \
