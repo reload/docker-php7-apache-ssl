@@ -27,4 +27,4 @@ echo ""
 read -p "*** Xdebug enabled, press enter to disable again ***"
 echo ""
 
-# When we reach this point the script exists, and triggers our trap.
+# When we reach this point the script exits, and triggers our trap.
