@@ -7,7 +7,7 @@ COPY files/etc/ /etc/
 COPY files/bin /usr/local/bin/
 
 ENV PATH /root/.composer/vendor/bin:$PATH
-ENV PHP_VERSION 5.6
+ENV PHP_VERSION 7.0
 
 RUN \
   apt-get update && \
@@ -29,7 +29,6 @@ RUN \
       php${PHP_VERSION}-mysql \
       php${PHP_VERSION}-xml \
       php${PHP_VERSION}-xdebug \
-      php${PHP_VERSION}-xhprof \
       php${PHP_VERSION}-mbstring \
       php${PHP_VERSION}-mcrypt \
       php${PHP_VERSION}-soap \
@@ -57,7 +56,7 @@ RUN \
   composer global require drush/drush:8.* && \
   apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ENV PHP_DEFAULT_EXTENSIONS calendar ctype curl dom exif fileinfo ftp gd gettext iconv json mcrypt mysql mysqli mysqlnd opcache pdo pdo_mysql phar posix readline shmop simplexml soap sockets sysvmsg sysvsem sysvshm tokenizer wddx xhprof xml xmlreader xmlwriter xsl mbstring zip
+ENV PHP_DEFAULT_EXTENSIONS calendar ctype curl dom exif fileinfo ftp gd gettext iconv json mcrypt mysql mysqli mysqlnd opcache pdo pdo_mysql phar posix readline shmop simplexml soap sockets sysvmsg sysvsem sysvshm tokenizer wddx xml xmlreader xmlwriter xsl mbstring zip
 
 EXPOSE 80 443
 WORKDIR /var/www/html
