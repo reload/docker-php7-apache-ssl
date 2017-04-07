@@ -9,7 +9,7 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 disable() {
     echo '- disabling xdebug' && \
     phpdismod xdebug
-    echo '- reloading php-fpm'
+    echo '- reloading apache'
     apachectl graceful
     exit $?
 }
@@ -19,7 +19,7 @@ trap disable EXIT
 # First step is to enable xdebug.
 echo '- enabling xdebug'
 phpenmod xdebug
-echo '- reloading php-fpm'
+echo '- reloading apache'
 apachectl graceful
 
 # Then we prompt the user.
