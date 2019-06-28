@@ -1,4 +1,4 @@
-FROM phusion/baseimage:0.9.18
+FROM phusion/baseimage:0.11
 
 MAINTAINER Reload A/S <kontakt@reload.dk>
 
