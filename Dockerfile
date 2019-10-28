@@ -1,4 +1,8 @@
+FROM composer:1.9.0 AS composer
+
 FROM phusion/baseimage:0.11
+
+COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 COPY files/etc/ /etc/
 # Add our tools to PATH.
@@ -47,7 +51,6 @@ RUN \
   phpenmod drupal-recommended && \
   phpdismod xdebug && \
   # Drush 8 is the current stable that supports Drupal version 6, 7 and 8.
-  curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
   composer global require drush/drush:8.*
 
 ENV PHP_DEFAULT_EXTENSIONS calendar ctype curl dom exif fileinfo ftp gd gettext iconv json mcrypt mysql mysqli mysqlnd opcache pdo pdo_mysql phar posix readline shmop simplexml soap sockets sysvmsg sysvsem sysvshm tokenizer wddx xml xmlreader xmlwriter xsl mbstring zip
