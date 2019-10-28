@@ -1,7 +1,5 @@
 FROM phusion/baseimage:0.11
 
-MAINTAINER Reload A/S <kontakt@reload.dk>
-
 COPY files/etc/ /etc/
 # Add our tools to PATH.
 COPY files/bin /usr/local/bin/
@@ -9,16 +7,13 @@ COPY files/bin /usr/local/bin/
 ENV PATH /root/.composer/vendor/bin:$PATH
 ENV PHP_VERSION 7.0
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 RUN \
-  apt-get update && \
-  # Install packages needed to enable an extra repository.
-  DEBIAN_FRONTEND=noninteractive apt-get -y install python-software-properties && \
   # Add a repo that contains php ${PHP_VERSION}
   LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php && \
   # Do the remaining installation of packages.
-  apt-get update && \
-  DEBIAN_FRONTEND=noninteractive \
-    apt-get -y install \
+  install_clean \
       apache2 \
       # Drush needs this to work
       mysql-client \
@@ -52,9 +47,8 @@ RUN \
   phpenmod drupal-recommended && \
   phpdismod xdebug && \
   # Drush 8 is the current stable that supports Drupal version 6, 7 and 8.
-  curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer && \
-  composer global require drush/drush:8.* && \
-  apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+  curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
+  composer global require drush/drush:8.*
 
 ENV PHP_DEFAULT_EXTENSIONS calendar ctype curl dom exif fileinfo ftp gd gettext iconv json mcrypt mysql mysqli mysqlnd opcache pdo pdo_mysql phar posix readline shmop simplexml soap sockets sysvmsg sysvsem sysvshm tokenizer wddx xml xmlreader xmlwriter xsl mbstring zip
 
