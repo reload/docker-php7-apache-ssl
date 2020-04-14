@@ -1,4 +1,4 @@
-FROM composer:1.10.1 AS composer
+FROM composer:1.10.4 AS composer
 
 FROM phusion/baseimage:0.11
 
